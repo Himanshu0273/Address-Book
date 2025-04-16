@@ -1,0 +1,5 @@
+#Virtual Environment
+venv/
+
+#Tests
+tests/test_input.txt
