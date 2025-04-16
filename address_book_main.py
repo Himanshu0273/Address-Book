@@ -2,11 +2,12 @@
 from contact_info import Contact
 import re
 
+#Decoratoe to validate input that the user enters:
 def validate_input(func):
     def wrapper(*args, **kwargs):
         fn_pattern=r"^[A-Z][a-z]{2,}$"
         ln_pattern=r"^[A-Z][a-z]{2,}$"
-        address_pattern=r"^[A-Z][a-zA-Z\s]{1,}$"
+        address_pattern=r"^[A-Za-z0-9\s,.-]+$"
         city_pattern=r"^[A-Z][a-zA-Z\s]{1,}$"
         state_pattern=r"^[A-Z][a-zA-Z\s]{1,}$"
         zip_pattern=r"^\d{6}$"
