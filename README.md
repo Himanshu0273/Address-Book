@@ -1,21 +1,33 @@
-UC1- Create Contact:
+UC2 - Add Contact to Address Book
 
-Overview:
+Overview
+This module enables the user to add a new contact to the address book via console input. It follows Object-Oriented Programming (OOP) principles and includes automated testing using pytest with fake data generation using the Faker library.
 
-This module allows users to create a new contact in the Address Book. Each contact stores the following details:
+Features
+Accepts user input via console to add a new contact.
 
-First Name
-Last Name
-Address
-City
-State
-Zip Code
-Phone Number
-Email ID
+Implements Object-Oriented Concepts:
 
-Functionality:
-A Contact class is defined to encapsulate all the contact information.
+Contact: encapsulates contact information.
 
-Users provide the required details, which are passed to the class constructor.
+AddressBookMain: manages the collection of contacts.
 
-The __str__ method is overridden to return a formatted representation of the contact details.
+Validates and adds contact data to the address book.
+
+Supports unit testing using pytest.
+
+Uses the Faker library to generate realistic fake data for testing.
+
+Architecture
+Class	                    Responsibility
+Contact	                    Stores personal contact details
+AddressBookMain	            Collects input and manages the address book list
+generate_faker_input.py	    Generates and writes fake contact data to a test file
+test_address_book.py	    Pytest file for testing Contact creation and storage
+
+Testing with pytest and Faker
+Faker is used to generate multiple realistic fake contact entries.
+
+These entries are stored in test_input.txt.
+
+pytest reads the entries, converts them into Contact objects, and checks if they are added correctly to the address book.
