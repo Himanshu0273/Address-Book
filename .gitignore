@@ -3,3 +3,6 @@ venv/
 
 #Tests
 tests/test_input.txt
+
+#Not needed
+/add_contact_details.py
