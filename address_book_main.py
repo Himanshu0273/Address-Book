@@ -17,7 +17,7 @@ def validate_input(func):
             raise ValueError("\nInvalid First Name!!")
         
         if not re.match(ln_pattern, kwargs['last_name']):
-            raise ValueError("Invalid !!")
+            raise ValueError("Invalid Last Name!!")
         if not re.match(address_pattern, kwargs['address']):
             raise ValueError("Invalid Address!!")
         
@@ -78,16 +78,18 @@ class AddressBookMain:
             print("Contact Found!!")
             print(contact)
             while True:
-                print("""Choose an option to edit a detail:
-                        1. Enter 1 to edit First Name.
-                        2. Enter 2 to edit Last Name.
-                        3. Enter 3 to edit Address.
-                        4. Enter 4 to edit City.
-                        5. Enter 5 to edit State.
-                        6. Enter 6 to edit Zip.
-                        7. Enter 7 to edit Phone number.
-                        8. Enter 8 to edit Email ID.
-                        0. Enter 0 to exit                    
+                print("""
+Choose an option to edit a detail:
+
+1. Enter 1 to edit First Name.
+2. Enter 2 to edit Last Name.
+3. Enter 3 to edit Address.
+4. Enter 4 to edit City.
+5. Enter 5 to edit State.
+6. Enter 6 to edit Zip.
+7. Enter 7 to edit Phone number.
+8. Enter 8 to edit Email ID.
+0. Enter 0 to exit                    
                     """)
                 choice=input("Enter your choice: ")
                 match(choice):
@@ -128,7 +130,18 @@ class AddressBookMain:
                         break
         else:
             print("No contact found.Try again!!!")    
-    
+
+    #Delete Details
+    def delete_details(self, first_name, last_name):
+        contact = None
+        for c in self.details:
+            if c.first_name == first_name and c.last_name==last_name:
+                self.details.remove(c)
+                print (f"Contact info of: {first_name} {last_name} is removed!!!")
+                break
+        else:
+            print("No contact found!!")
+        
     def display_details(self):
         if len(self.details)==0:
             print("Empty Address Book!!!")

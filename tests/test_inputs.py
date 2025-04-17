@@ -68,5 +68,6 @@ def test_add_contact(add_contacts):
     
 
 #test to check if the edit function is working properly
+# @pytest.mark.parametrize((""))
 def test_edit_details():
     pass
