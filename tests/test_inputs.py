@@ -68,3 +68,5 @@ def test_add_contact(add_contacts):
     
 
 #test to check if the edit function is working properly
+def test_edit_details():
+    pass
