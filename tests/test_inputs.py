@@ -39,6 +39,7 @@
 import pytest
 from address_book_main import AddressBookMain
 
+#Fixture to load the data for testing
 @pytest.fixture
 def add_contacts():
     book = AddressBookMain()
@@ -61,5 +62,9 @@ def add_contacts():
             book.add_contact(**contact_kwargs)
         return book
     
+#test to check if the contacts are being added successfully
 def test_add_contact(add_contacts):
     assert len(add_contacts)==10
+    
+
+#test to check if the edit function is working properly

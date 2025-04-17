@@ -10,7 +10,8 @@ class AddressBook:
         while True:
             print("""
                 Menu:
-                1. Enter 1 to add contact details.
+                1. Enter 1 to add new contact details.
+                2. Enter 2 to edit existing contact details.
                 9. Enter 9 to display the address book.
                 END: Enter 0 to stop.
                 """)
@@ -42,8 +43,11 @@ class AddressBook:
                         print(e)
                     
                     
-                # case 2:
-                #     print("Enter the first name to edit details: ")
+                case 2:
+                    print("Enter the first name to edit details: ")
+                    first_name = input("Enter the first name of the contact you want to edit: ")
+                    last_name = input("Enter the last name of the contact you want to edit: ")
+                    address_book.edit_details(first_name, last_name)
                 case 9:
                     print("Here's your address book: ")
                     address_book.display_details()
