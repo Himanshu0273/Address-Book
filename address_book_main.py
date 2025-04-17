@@ -1,43 +1,6 @@
 # from add_contact_details import AddDetails
 from contact_info import Contact
-import re
-
-#Decoratoe to validate input that the user enters:
-def validate_input(func):
-    def wrapper(*args, **kwargs):
-        fn_pattern=r"^[A-Z][a-z]{2,}$"
-        ln_pattern=r"^[A-Z][a-z]{2,}$"
-        address_pattern=r"^[A-Za-z0-9\s,.-]+$"
-        city_pattern=r"^[A-Z][a-zA-Z\s]{1,}$"
-        state_pattern=r"^[A-Z][a-zA-Z\s]{1,}$"
-        zip_pattern=r"^\d{6}$"
-        phno_pattern=r"^(\+[0-9]{1,3}\s)?[1-9][0-9]{9}$"
-        email_pattern=r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-        if not re.match(fn_pattern,kwargs['first_name']):
-            raise ValueError("\nInvalid First Name!!")
-        
-        if not re.match(ln_pattern, kwargs['last_name']):
-            raise ValueError("Invalid Last Name!!")
-        if not re.match(address_pattern, kwargs['address']):
-            raise ValueError("Invalid Address!!")
-        
-        if not re.match(city_pattern, kwargs['city']):
-            raise ValueError("Invalid City!!")
-        
-        if not re.match(state_pattern, kwargs['state']):
-            raise ValueError("Invalid State!!")
-        
-        if not re.match(zip_pattern, kwargs['zip']):
-            raise ValueError("Invalid ZIP Code!!")
-        
-        if not re.match(phno_pattern, kwargs['phno']):
-            raise ValueError("Invalid Phone Number!!")
-        
-        if not re.match(email_pattern, kwargs['email']):
-            raise ValueError("Invalid Email ID!!")
-        
-        return func(*args, **kwargs)
-    return wrapper
+from Schema.schema import ContactSchema
 
 class AddressBookMain:
     
@@ -50,30 +13,37 @@ class AddressBookMain:
     def __iter__(self):
         return iter(self.details)
     
-    #Add Details
-    @validate_input
+    #Add Details 
     def add_contact(self,**kwargs):
-        detail =Contact(
-            kwargs["first_name"],
-            kwargs["last_name"],
-            kwargs["address"],
-            kwargs["city"],
-            kwargs["state"],
-            kwargs["zip"],
-            kwargs["phno"],
-            kwargs["email"]
-        )
-        self.details.append(detail)
-        print("Details added!!!")
+        try:
+            contact_data = ContactSchema(**kwargs)
+            detail=Contact(
+                contact_data.first_name,
+                contact_data.last_name,
+                contact_data.address,
+                contact_data.city,
+                contact_data.state,
+                contact_data.zip,
+                contact_data.phno,
+                contact_data.email,
+            )
+            self.details.append(detail)
+            print("Details Added!!")
+        except ValueError as e:
+            print(f"Error: {e}")
         
     #Edit Details
     def edit_details(self, first_name, last_name):
         contact=None
         for c in self.details:
-            if c.first_name == first_name and c.last_name == last_name:
-                contact=c
-                break
+            if c.first_name == first_name:
+                if c.last_name == last_name:
+                    contact=c
+                    break
+        else:
+            print("Contact not present")
             
+        
         if contact:
             print("Contact Found!!")
             print(contact)
@@ -128,8 +98,10 @@ Choose an option to edit a detail:
                     case "0":
                         print("Editing Complete!!")
                         break
-        else:
-            print("No contact found.Try again!!!")    
+                print()
+                print ("Updated Contact: ")
+                print(contact)
+          
 
     #Delete Details
     def delete_details(self, first_name, last_name):
