@@ -15,4 +15,10 @@ class Contact:
             f"Email ID: {self.email}"            
         )    
         
+        
+    #Check for duplicates
+    def __eq__(self, other):
+        if isinstance(other, Contact):
+            return self.first_name==other.first_name and self.last_name == other.last_name
+        return False
 # print(Contact("Himanshu", "Baid", "Ideal Grand", "Howrah", "West Bengal", 711102, 8910322481, "abc@gmail.com"))

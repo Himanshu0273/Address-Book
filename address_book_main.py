@@ -18,8 +18,13 @@ class AddressBookMain:
     def add_contact(self,**kwargs):
         try:
             contact_data=Contact(**kwargs)
-            self.details.append(contact_data)
-            print("Details Added")
+            if contact_data in self.details:
+                print("The contact already exists!!!")
+                
+            else:
+                self.details.append(contact_data)
+                print("Details Added")
+
         except ValueError as e:
             print(f"Error occured: {e}")
         
@@ -103,7 +108,6 @@ Choose an option to edit a detail:
                 break
         else:
             print("No contact found!!")
-
             
     #Display the address book
     def display_details(self):
