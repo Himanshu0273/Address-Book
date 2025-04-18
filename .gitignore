@@ -6,3 +6,6 @@ tests/test_input.txt
 
 #Not needed
 add_contact_details.py
+
+
+check.py
