@@ -16,6 +16,8 @@ class AddressBookSystem:
     # Get an existing Address Book
     def get_book(self):
         book = input("Enter the book you want to access: ")
+        print("Here's the Book Details: ")
+        print(book)
         return self.books.get(book)
     
     # Do operations on the selected address book

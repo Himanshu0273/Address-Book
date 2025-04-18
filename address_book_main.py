@@ -1,6 +1,6 @@
 # from add_contact_details import AddDetails
 from contact_info import Contact
-from Schema.schema import ContactSchema, create_contact
+from Schema.schema import ContactSchema, create_contact, validate_input
 
 class AddressBookMain:
     
@@ -13,21 +13,12 @@ class AddressBookMain:
     def __iter__(self):
         return iter(self.details)
     
-    #Add Details 
+    #Add Details
+    @validate_input
     def add_contact(self,**kwargs):
         try:
-            contact_data=create_contact(**kwargs)
-            detail=Contact(
-                contact_data.first_name,
-                contact_data.last_name,
-                contact_data.address,
-                contact_data.city,
-                contact_data.state,
-                contact_data.zip,
-                contact_data.phone_number,
-                contact_data.email
-            )
-            self.details.append(detail)
+            contact_data=Contact(**kwargs)
+            self.details.append(contact_data)
             print("Details Added")
         except ValueError as e:
             print(f"Error occured: {e}")
@@ -102,7 +93,6 @@ Choose an option to edit a detail:
                 print ("Updated Contact: ")
                 print(contact)
           
-
     #Delete Details
     def delete_details(self, first_name, last_name):
         contact = None
@@ -113,7 +103,9 @@ Choose an option to edit a detail:
                 break
         else:
             print("No contact found!!")
-        
+
+            
+    #Display the address book
     def display_details(self):
         if len(self.details)==0:
             print("Empty Address Book!!!")
