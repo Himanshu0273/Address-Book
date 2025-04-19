@@ -34,8 +34,7 @@ class AddressBookManager:
             if book_choice == 4:
                 area= input("Enter the city or state you want to search: ").lower()
                 res = searchfuncs.search_by_city_or_state(area)
-                searchfuncs.count_people_in_same_area(res,area)
-                # searchfuncs.list_people_in_same_location(res,area)
+                searchfuncs.list_people_in_same_location(res,area)
                     
             if book_choice == 9:
                 address_book_library.display_books()
