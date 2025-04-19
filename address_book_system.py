@@ -83,19 +83,6 @@ class AddressBookMain:
                 case _:
                     print("Invalid input, try again.")
     
-    #Search people by the city or state across multiple address books
-    # def search_people_by_location(self):
-    #     area = input("Enter the state or area: ")
-    #     for c in self.books:
-    #         searched_res = AddressBook.search_city_or_state(area) 
-    #         AddressBook.same_area.append(searched_res)
-        
-    # def count_of_people_in_same_location(self):
-    #     print(len(AddressBook.same_area))
-
-    # def list_of_same_area_people(self):
-    #     print(AddressBook.same_area)
-    
     # Display the names of the address books
     def display_books(self):
         if len(self.books) == 0:
@@ -114,6 +101,8 @@ class SearchFunction(AddressBookMain):
         super().__init__()
         self.books = books
         self.same_area=[]
+        self.same_city=[]
+        self.same_state=[]
         
     def search_by_city_or_state(self, area):
         area = area.lower()
@@ -121,8 +110,27 @@ class SearchFunction(AddressBookMain):
             for contact in book.details:
                 if area in contact.city.lower() or area in contact.state.lower():
                     self.same_area.append(contact)
-                    
+                       
         return self.same_area
+    
+    def people_in_same_city(self, city):
+        self.same_city=[]
+        for book in self.books.values():
+            for contact in book.details:
+                if city in contact.city.lower():
+                    self.same_city.append(contact)
+                    
+        return self.same_city
+    
+    def people_in_same_state(self, state):
+        self.same_state=[]
+        for book in self.books.values():
+            for contact in book.details:
+                if state in contact.state.lower():
+                    self.same_state.append(contact)
+                    
+        return self.same_state
+    
     
     def count_people_in_same_area(self, res, area):
         print(f"Number of people in the {area} area is: {len(res)}")

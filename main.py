@@ -18,6 +18,7 @@ class AddressBookManager:
         2.Enter 2 to get a book's details.
         3.Enter 3 to operate on a book.
         4.Enter 4 to find people in the same city or state across all the different address books.
+        5.Enter 5 to find all people in same city or state in separate lists
         9.Enter 9 to display the list of all available address books.
         0.Enter 0 to END.
                   """)
@@ -36,6 +37,20 @@ class AddressBookManager:
                 res = searchfuncs.search_by_city_or_state(area)
                 searchfuncs.count_people_in_same_area(res,area)
                 searchfuncs.list_people_in_same_location(res,area)
+                
+            if book_choice==5:
+                choice=input("Great!! Now pick 'c' or 's' to get all contacts from a city or state respectively: ")
+                if choice.lower() == 's':
+                    state = input("Enter the state you want to check: ")
+                    print(f"People is {state} state are: ")
+                    print(searchfuncs.people_in_same_state(state))
+                    
+                elif choice.lower() == 'c':
+                    city = input("Enter the city you want to check: ")
+                    print(f"People is {city} city are: ")
+                    print(searchfuncs.people_in_same_city(city))
+                else:
+                    print("Invalid Input!!Try again!!")
                     
             if book_choice == 9:
                 address_book_library.display_books()
