@@ -127,12 +127,12 @@ class SearchFunction(AddressBookMain):
     def count_people_in_same_area(self, res, area):
         print(f"Number of people in the {area} area is: {len(res)}")
         
-    def list_people_in_same_location(self, res, area):
-        if not res:
-            print(f"No contacts found in the area: {area}")
-        else:
-            print(f"People in {area} are:")
-            for contact in res:
-                print(contact)
-                print()
+    # def list_people_in_same_location(self, res, area):
+    #     if not res:
+    #         print(f"No contacts found in the area: {area}")
+    #     else:
+    #         print(f"People in {area} are:")
+    #         for contact in res:
+    #             print(contact)
+    #             print()
     
