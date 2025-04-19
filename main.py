@@ -31,6 +31,7 @@ class AddressBookManager:
             if book_choice == 3:
                 address_book_library.operate_book()
 
+            #UC8,9,10
             if book_choice == 4:
                 area= input("Enter the city or state you want to search: ").lower()
                 res = searchfuncs.search_by_city_or_state(area)
