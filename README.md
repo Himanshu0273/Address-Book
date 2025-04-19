@@ -10,7 +10,7 @@ Implements Object-Oriented Concepts:
 
 Contact: encapsulates contact information.
 
-AddressBookMain: manages the collection of contacts.
+AddressBook: manages the collection of contacts.
 
 Validates and adds contact data to the address book.
 
@@ -21,7 +21,7 @@ Uses the Faker library to generate realistic fake data for testing.
 Architecture
 Class	                    Responsibility
 Contact	                    Stores personal contact details
-AddressBookMain	            Collects input and manages the address book list
+AddressBook	            Collects input and manages the address book list
 generate_faker_input.py	    Generates and writes fake contact data to a test file
 test_address_book.py	    Pytest file for testing Contact creation and storage
 

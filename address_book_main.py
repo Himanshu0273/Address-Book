@@ -2,7 +2,7 @@
 from contact_info import Contact
 from Schema.schema import ContactSchema, create_contact, validate_input
 
-class AddressBookMain:
+class AddressBook:
     
     def __init__(self):
         self.details = []
@@ -14,7 +14,6 @@ class AddressBookMain:
         return iter(self.details)
     
     #Add Details
-    @validate_input
     def add_contact(self,**kwargs):
         try:
             contact_data=Contact(**kwargs)
@@ -108,6 +107,11 @@ Choose an option to edit a detail:
                 break
         else:
             print("No contact found!!")
+   
+    #Search city or state
+    # def search_city_or_state(self, area):
+    #     return [c for c in self.details if c.city==area or c.state==area]
+                
             
     #Display the address book
     def display_details(self):
@@ -120,6 +124,6 @@ Choose an option to edit a detail:
             print(f"\nContact {i}:\n{detail}")
             
             
-# ob1 = AddressBookMain()
+# ob1 = AddressBook()
 # ob1.add_contact()
 # ob1.display_details()

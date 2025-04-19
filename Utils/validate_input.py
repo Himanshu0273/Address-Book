@@ -4,7 +4,6 @@ from functools import wraps
 def validate_input(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        # print("THis is kwargs: ", kwargs)
         patterns={
             'first_name': r"^[a-zA-Z]{2,}$",
             'last_name': r"^[a-zA-Z]{2,}$",
@@ -19,7 +18,9 @@ def validate_input(func):
         for field, pattern in patterns.items():
             if field in kwargs:
                 if not re.fullmatch(pattern, kwargs[field]):
-                    raise ValueError(f"Invalid value for {field}: {kwargs[field]}")
+                    # raise ValueError(f"Invalid value for {field}: {kwargs[field]}")
+                    print(f"❌ Invalid value for '{field}': {kwargs[field]}")
+                    kwargs[field] = input(f"Please re-enter valid '{field}': ")
         
         return func(*args, **kwargs)
          

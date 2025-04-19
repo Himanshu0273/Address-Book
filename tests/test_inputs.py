@@ -1,6 +1,6 @@
 # import pytest
 # from contact_info import Contact
-# from  address_book_main import AddressBookMain
+# from  address_book_main import AddressBook
 
 # @pytest.fixture
 # def fake_contact():
@@ -27,7 +27,7 @@
 # @pytest.fixture
 
 # def add_contacts(fake_contact):
-#     book = AddressBookMain()
+#     book = AddressBook()
 #     book.details.extend(fake_contact)
 #     return book
 
@@ -37,12 +37,12 @@
 
 
 import pytest
-from address_book_main import AddressBookMain
+from address_book_main import AddressBook
 
 #Fixture to load the data for testing
 @pytest.fixture
 def add_contacts():
-    book = AddressBookMain()
+    book = AddressBook()
     with open("test_input.txt","r") as file:
         lines = file.read().strip().split("\n\n")
         for block in lines:

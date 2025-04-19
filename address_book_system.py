@@ -1,15 +1,15 @@
-from address_book_main import AddressBookMain
+from address_book_main import AddressBook
 from Schema.schema import ContactSchema,contact_details
-class AddressBookSystem:
+class AddressBookMain:
     
     def __init__(self):
         self.books = {}
-        
     # Add a new Address Book
     def add_book(self):
         name = input("Enter the name of the address book: ")
         if name not in self.books:
-            self.books[name] = AddressBookMain()
+            self.books[name] = AddressBook()
+            print(self.books[name])
         else:
             print("An address book with the same name already exists!!!")
             
@@ -47,8 +47,11 @@ class AddressBookSystem:
                     try:
                         contact_data = contact_details()
                         book.add_contact(**contact_data.__dict__)
+                        
+                        
                     except ValueError as e:
                         print(f"Error: {e}")
+                
                 # Edit an existing contact
                 case 2:
                     if len(book.details) == 0:
@@ -80,6 +83,19 @@ class AddressBookSystem:
                 case _:
                     print("Invalid input, try again.")
     
+    #Search people by the city or state across multiple address books
+    # def search_people_by_location(self):
+    #     area = input("Enter the state or area: ")
+    #     for c in self.books:
+    #         searched_res = AddressBook.search_city_or_state(area) 
+    #         AddressBook.same_area.append(searched_res)
+        
+    # def count_of_people_in_same_location(self):
+    #     print(len(AddressBook.same_area))
+
+    # def list_of_same_area_people(self):
+    #     print(AddressBook.same_area)
+    
     # Display the names of the address books
     def display_books(self):
         if len(self.books) == 0:
@@ -87,3 +103,36 @@ class AddressBookSystem:
         else:
             for i, name in enumerate(self.books, 1):
                 print(f"{i}. {name}")
+
+
+
+#Search Functions class
+
+class SearchFunction(AddressBookMain):
+    
+    def __init__(self, books):
+        super().__init__()
+        self.books = books
+        self.same_area=[]
+        
+    def search_by_city_or_state(self, area):
+        area = area.lower()
+        for book in self.books.values():
+            for contact in book.details:
+                if area in contact.city.lower() or area in contact.state.lower():
+                    self.same_area.append(contact)
+                    
+        return self.same_area
+    
+    def count_people_in_same_area(self, res, area):
+        print(f"Number of people in the {area} area is: {len(res)}")
+        
+    def list_people_in_same_location(self, res, area):
+        if not res:
+            print(f"No contacts found in the area: {area}")
+        else:
+            print(f"People in {area} are:")
+            for contact in res:
+                print(contact)
+                print()
+    
