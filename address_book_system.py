@@ -4,6 +4,7 @@ from Text_File_IO.file_IO_txt import  save_book_to_txt, load_all_books
 class AddressBookMain:
     
     def __init__(self):
+        #Load from file
         self.books = load_all_books()
         
     # Add a new Address Book
