@@ -1,5 +1,6 @@
 import pytest
 from address_book_main import AddressBook
+from address_book_system import AddressBookMain
 
 @pytest.fixture
 def contact_1():
@@ -54,10 +55,43 @@ def contact_4():
     }
     
 @pytest.fixture
-def address_book_with_four_contacts(contact_1,contact_2,contact_3,contact_4):
+def contact_5():
+    return{
+        "first_name": "Chirag",
+        "last_name": "Baid",
+        "address": "Vivek Vihar",
+        "city": "Howrah",
+        "state": "West Bengal",
+        "zip": "711102",
+        "phone_number": "9807657432",
+        "email": "cb@gmail.com"
+    }
+    
+@pytest.fixture
+def address_book_with_five_contacts(contact_1, contact_2, contact_3, contact_4, contact_5):
     book = AddressBook()
     book.add_contact(**contact_1)
     book.add_contact(**contact_2)
     book.add_contact(**contact_3)
     book.add_contact(**contact_4)
+    book.add_contact(**contact_5)
     return book
+
+
+@pytest.fixture
+def multiple_books(contact_1, contact_2, contact_3, contact_4, contact_5):
+    manager = AddressBookMain()
+    
+    #Book1
+    manager.add_book("Friends")
+    manager.get_book("Friends").add_contact(**contact_3)
+    manager.get_book("Friends").add_contact(**contact_4)
+    manager.get_book("Friends").add_contact(**contact_5)
+    
+    #Book2
+    manager.add_book("Family")
+    manager.get_book("Family").add_contact(**contact_1)
+    manager.get_book("Family").add_contact(**contact_2)
+    
+    return manager
+

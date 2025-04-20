@@ -99,7 +99,6 @@ Choose an option to edit a detail:
           
     #Delete Details
     def delete_details(self, first_name, last_name):
-        contact = None
         for c in self.details:
             if c.first_name.lower() == first_name.lower() and c.last_name.lower() == last_name.lower():
                 self.details.remove(c)

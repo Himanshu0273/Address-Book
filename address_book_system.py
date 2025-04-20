@@ -5,21 +5,28 @@ class AddressBookMain:
     def __init__(self):
         self.books = {}
     # Add a new Address Book
-    def add_book(self):
-        name = input("Enter the name of the address book: ")
+    def add_book(self, name = None):
+        if name is None:
+            name = input("Enter the name of the address book: ")
+        
         if name not in self.books:
             self.books[name] = AddressBook()
             print(self.books[name])
+            return True
         else:
             print("An address book with the same name already exists!!!")
+            return False
             
     # Get an existing Address Book
-    def get_book(self):
-        book = input("Enter the book you want to access: ")
+    def get_book(self, book=None):
         if book is None:
+            book = input("Enter the book you want to access: ")
+        
+        if book not in self.books:
             print("No such book found!!")
             return
         print(f"Found book: {book}")
+        print(type(self.books.get(book)))
         return self.books.get(book)
     
     # Do operations on the selected address book
@@ -83,6 +90,23 @@ class AddressBookMain:
                 case _:
                     print("Invalid input, try again.")
     
+    
+    #Sort the people in address book by name
+    def sort_by_name(self, book=None):
+        if book is None:
+            print("No book found!!!")
+            return []
+        
+        address_book = self.get_book(book)
+        if not address_book:
+            print(f"No address book of the name: {book} was found")
+            return []
+        
+        sorted_book = sorted(address_book, key=lambda x: (x.first_name, x.last_name))
+        return sorted_book
+
+            
+    
     # Display the names of the address books
     def display_books(self):
         if len(self.books) == 0:
@@ -104,6 +128,7 @@ class SearchFunction(AddressBookMain):
         self.same_city=[]
         self.same_state=[]
         
+    #Search 
     def search_by_city_or_state(self, area):
         area = area.lower()
         for book in self.books.values():
