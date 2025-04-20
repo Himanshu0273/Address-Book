@@ -1,6 +1,6 @@
 from address_book_main import AddressBook
 from Schema.schema import ContactSchema,contact_details
-from Text_File_IO.file_IO_txt import  save_book_to_txt, load_all_books
+from File_IO.file_IO import  save_book_to_txt, load_all_books,save_book_to_csv
 class AddressBookMain:
     
     def __init__(self):
@@ -14,7 +14,10 @@ class AddressBookMain:
         
         if name not in self.books:
             self.books[name] = AddressBook()
+            
             save_book_to_txt(name, self.books[name])
+            save_book_to_csv(name, self.books[name])
+            
             print(self.books[name])
             return True
         else:
@@ -61,6 +64,8 @@ class AddressBookMain:
                         book.add_contact(**contact_data.__dict__)
                         
                         save_book_to_txt(book_name, book)
+                        save_book_to_csv(book_name, book)
+                        
                         
                     except ValueError as e:
                         print(f"Error: {e}")
@@ -76,6 +81,7 @@ class AddressBookMain:
                         book.edit_details(first_name, last_name)
                         
                         save_book_to_txt(book_name, book)
+                        save_book_to_csv(book, book_name)
 
                 # Delete an existing contact
                 case 3:
@@ -85,6 +91,7 @@ class AddressBookMain:
                     book.delete_details(first_name, last_name)
                     
                     save_book_to_txt(book_name, book)
+                    save_book_to_csv(book, book_name)
 
                 # Display contact details
                 case 9:
