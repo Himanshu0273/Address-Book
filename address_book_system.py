@@ -1,6 +1,6 @@
 from address_book_main import AddressBook
 from Schema.schema import ContactSchema,contact_details
-from File_IO.file_IO import  save_book_to_txt, load_all_books,save_book_to_csv
+from File_IO.file_IO import  save_book_to_txt, load_all_books,save_book_to_csv,save_book_to_json
 class AddressBookMain:
     
     def __init__(self):
@@ -15,8 +15,10 @@ class AddressBookMain:
         if name not in self.books:
             self.books[name] = AddressBook()
             
+            #Updating the respective files of .txt, .csv, .json format
             save_book_to_txt(name, self.books[name])
             save_book_to_csv(name, self.books[name])
+            save_book_to_json(name, self.books[name])
             
             print(self.books[name])
             return True
@@ -63,9 +65,10 @@ class AddressBookMain:
                         contact_data = contact_details()
                         book.add_contact(**contact_data.__dict__)
                         
+                        #Updating the respective files of .txt, .csv, .json format
                         save_book_to_txt(book_name, book)
                         save_book_to_csv(book_name, book)
-                        
+                        save_book_to_json(book_name, book)
                         
                     except ValueError as e:
                         print(f"Error: {e}")
@@ -80,8 +83,10 @@ class AddressBookMain:
                         last_name = input("Last Name: ")
                         book.edit_details(first_name, last_name)
                         
+                        #Updating the respective files of .txt, .csv, .json format
                         save_book_to_txt(book_name, book)
-                        save_book_to_csv(book, book_name)
+                        save_book_to_csv(book_name, book)
+                        save_book_to_json(book_name, book)
 
                 # Delete an existing contact
                 case 3:
@@ -90,8 +95,10 @@ class AddressBookMain:
                     last_name = input("Last Name: ")
                     book.delete_details(first_name, last_name)
                     
+                    #Updating the respective files of .txt, .csv, .json format
                     save_book_to_txt(book_name, book)
-                    save_book_to_csv(book, book_name)
+                    save_book_to_csv(book_name, book)
+                    save_book_to_json(book_name, book)
 
                 # Display contact details
                 case 9:
