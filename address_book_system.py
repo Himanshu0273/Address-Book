@@ -94,19 +94,61 @@ class AddressBookMain:
     #Sort the people in address book by name
     def sort_by_name(self, book=None):
         if book is None:
-            print("No book found!!!")
+            print("NO BOOK SEARCHED!!")
             return []
         
         address_book = self.get_book(book)
         if not address_book:
-            print(f"No address book of the name: {book} was found")
+            print(f"No address book of the name: {book} was found!")
             return []
         
         sorted_book = sorted(address_book, key=lambda x: (x.first_name, x.last_name))
         return sorted_book
-
-            
+ 
+    #Sort by state
+    def sort_by_state(self, book=None):
+        if book is None:
+            print("NO BOOK SEARCHED!!")
+            return []
+        
+        address_book = self.get_book(book)
+        if not address_book:
+            print(f"No book of the name {book} was found!")
+            return []
+        
+        sorted_book = sorted(address_book.details, key=lambda x: x.state.lower())
+        return sorted_book
     
+    #Sort by city
+    def sort_by_city(self, book=None):
+        if book is None:
+            print("NO BOOK SEARCHED!!")
+            return []
+        
+        address_book = self.get_book(book)
+        if not address_book:
+            print(f"No book of the name {book} was found!")
+            return []
+        
+        sorted_book = sorted(address_book.details, key=lambda x: x.city.lower())
+        return sorted_book
+
+    #Sort by zip
+    def sort_by_zip(self, book=None):
+        if book is None:
+            print("NO BOOK SEARCHED!!")
+            return []
+        
+        address_book = self.get_book(book)
+        if not address_book:
+            print(f"No book of the name {book} was found!")
+            return []
+        
+        sorted_book = sorted(address_book.details, key=lambda x: x.zip.lower())
+        return sorted_book
+        
+        
+        
     # Display the names of the address books
     def display_books(self):
         if len(self.books) == 0:

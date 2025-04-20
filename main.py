@@ -20,6 +20,7 @@ class AddressBookManager:
         4.Enter 4 to find people in the same city or state across all the different address books.
         5.Enter 5 to find all people in same city or state in separate lists.
         6.Enter 6 to sort an address book according to the names of the people.
+        7.Enter 7 to sort an address book according to city, state, or zip.
         9.Enter 9 to display the list of all available address books.
         0.Enter 0 to END.
                   """)
@@ -65,6 +66,37 @@ class AddressBookManager:
                 else:
                     print("No Book with such name found!!")
                     
+            elif book_choice == 7:
+                book = input("Enter the book you want to sort: ")
+                print("""
+    Menu:
+    
+    1. Enter 1 to sort by state.
+    2. Enter 2 to sort by city.
+    3. Enter 3 to sort by zip.      
+        """)
+                choice = int((input("Enter your choice: ")))
+                
+                if choice == 1:
+                    sorted_book = address_book_library.sort_by_state(book)
+                
+                elif choice == 2:
+                    sorted_book = address_book_library.sort_by_city(book)
+                    
+                elif choice == 3:
+                    sorted_book = address_book_library.sort_by_zip(book)
+                    
+                else:
+                    print("Enter valid choice!!!")
+                    
+                if sorted_book:
+                    print("The sorted book is: ")
+                    for x in sorted_book:
+                        print(x)
+                        print()
+                        
+                else:
+                    print("No Book with such name found!!")
                 
             elif book_choice == 9:
                 address_book_library.display_books()

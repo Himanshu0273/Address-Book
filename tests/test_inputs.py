@@ -86,3 +86,55 @@ def test_sort_by_name(multiple_books):
     )
     
     assert sorted_names == expected_book
+    
+    
+#sort by state
+def test_sort_by_state(multiple_books):
+    manager = multiple_books
+    sorted_book = manager.sort_by_state("Friends")
+    
+    sorted_names =[(c.first_name, c.last_name,c.state) for c in sorted_book]
+    
+    expected_book = [
+        ("Krish", "Jain", "Tamil Nadu"),
+        ("Himanshu", "Agarwal", "West Bengal"),
+        ("Chirag", "Baid", "West Bengal"),
+    ]
+    
+    assert sorted_names == expected_book
+
+#sort by city
+def test_sort_by_city(multiple_books):
+    manager = multiple_books
+    sorted_book = manager.sort_by_city("Friends")
+    
+    sorted_names =[(c.first_name, c.last_name, c.city) for c in sorted_book]
+    
+    expected_book = sorted(
+        [
+            ("Krish", "Jain", "Chennai"),
+            ("Chirag", "Baid", "Howrah"),
+            ("Himanshu", "Agarwal", "Kolkata")
+        ],
+        key=lambda c: (c[2].lower())
+    )
+    
+    assert sorted_names == expected_book
+
+#sort by zip
+def test_sort_by_zip(multiple_books):
+    manager = multiple_books
+    sorted_book = manager.sort_by_zip("Friends")
+    
+    sorted_names =[(c.first_name, c.last_name,c.zip) for c in sorted_book]
+    
+    expected_book = sorted(
+        [
+            ("Himanshu", "Agarwal", "700029"),
+            ("Krish", "Jain", "703203"),
+            ("Chirag", "Baid", "711102")
+        ],
+        key=lambda c: (c[2])
+    )
+    
+    assert sorted_names == expected_book
