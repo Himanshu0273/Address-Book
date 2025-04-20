@@ -11,7 +11,7 @@ def test_add_contacts(address_book_with_five_contacts):
     expected_names = {
         ("Himanshu", "Baid"),
         ("Kamal", "Baid"),
-        ("Gaurav", "Agarwal"),
+        ("Himanshu", "Agarwal"),
         ("Krish", "Jain"),
         ("Chirag", "Baid")
     }
@@ -27,9 +27,9 @@ def test_delete_contact(address_book_with_five_contacts):
     book = address_book_with_five_contacts
     assert len(book)==5
     
-    book.delete_details("Gaurav", "Agarwal")
+    book.delete_details("Himanshu", "Agarwal")
     rem_names = {(c.first_name, c.last_name) for c in book.details}
-    assert {"Gaurav", "Agarwal"} not in rem_names
+    assert {"Himanshu", "Agarwal"} not in rem_names
     assert len(book) == 4
     
     
@@ -53,11 +53,11 @@ def test_multiple_address_books(multiple_books):
     assert "Himanshu Baid" in family_names
     assert "Kamal Baid" in family_names
     assert "Chirag Baid" in friends_names
-    assert "Gaurav Agarwal" in friends_names
+    assert "Himanshu Agarwal" in friends_names
     assert "Krish Jain" in friends_names
     assert "Aniket Sonar" not in friends_names
 
-#no duplicates
+#no duplicates test
 def test_no_duplicates(multiple_books):
     manager = multiple_books
     
@@ -69,3 +69,20 @@ def test_no_duplicates(multiple_books):
     assert manager.add_book("Apartment") is True
     
 
+#sort by name test
+def test_sort_by_name(multiple_books):
+    manager = multiple_books
+    sorted_book = manager.sort_by_name("Friends")
+    
+    sorted_names =[(c.first_name, c.last_name) for c in sorted_book]
+    
+    expected_book = sorted(
+        [
+            ("Himanshu", "Agarwal"),
+            ("Krish", "Jain"),
+            ("Chirag", "Baid")
+        ],
+        key=lambda c: (c[0].lower(), c[1].lower())
+    )
+    
+    assert sorted_names == expected_book
