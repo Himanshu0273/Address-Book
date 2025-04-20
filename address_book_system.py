@@ -5,21 +5,28 @@ class AddressBookMain:
     def __init__(self):
         self.books = {}
     # Add a new Address Book
-    def add_book(self):
-        name = input("Enter the name of the address book: ")
+    def add_book(self, name = None):
+        if name is None:
+            name = input("Enter the name of the address book: ")
+        
         if name not in self.books:
             self.books[name] = AddressBook()
             print(self.books[name])
+            return True
         else:
             print("An address book with the same name already exists!!!")
+            return False
             
     # Get an existing Address Book
-    def get_book(self):
-        book = input("Enter the book you want to access: ")
+    def get_book(self, book=None):
         if book is None:
+            book = input("Enter the book you want to access: ")
+        
+        if book not in self.books:
             print("No such book found!!")
             return
         print(f"Found book: {book}")
+        print(type(self.books.get(book)))
         return self.books.get(book)
     
     # Do operations on the selected address book
@@ -83,18 +90,22 @@ class AddressBookMain:
                 case _:
                     print("Invalid input, try again.")
     
-    #Search people by the city or state across multiple address books
-    # def search_people_by_location(self):
-    #     area = input("Enter the state or area: ")
-    #     for c in self.books:
-    #         searched_res = AddressBook.search_city_or_state(area) 
-    #         AddressBook.same_area.append(searched_res)
+    
+    #Sort the people in address book by name
+    def sort_by_name(self, book=None):
+        if book is None:
+            print("No book found!!!")
+            return []
         
-    # def count_of_people_in_same_location(self):
-    #     print(len(AddressBook.same_area))
+        address_book = self.get_book(book)
+        if not address_book:
+            print(f"No address book of the name: {book} was found")
+            return []
+        
+        sorted_book = sorted(address_book, key=lambda x: (x.first_name, x.last_name))
+        return sorted_book
 
-    # def list_of_same_area_people(self):
-    #     print(AddressBook.same_area)
+            
     
     # Display the names of the address books
     def display_books(self):
@@ -114,15 +125,37 @@ class SearchFunction(AddressBookMain):
         super().__init__()
         self.books = books
         self.same_area=[]
+        self.same_city=[]
+        self.same_state=[]
         
+    #Search 
     def search_by_city_or_state(self, area):
         area = area.lower()
         for book in self.books.values():
             for contact in book.details:
                 if area in contact.city.lower() or area in contact.state.lower():
                     self.same_area.append(contact)
-                    
+                       
         return self.same_area
+    
+    def people_in_same_city(self, city):
+        self.same_city=[]
+        for book in self.books.values():
+            for contact in book.details:
+                if city in contact.city.lower():
+                    self.same_city.append(contact)
+                    
+        return self.same_city
+    
+    def people_in_same_state(self, state):
+        self.same_state=[]
+        for book in self.books.values():
+            for contact in book.details:
+                if state in contact.state.lower():
+                    self.same_state.append(contact)
+                    
+        return self.same_state
+    
     
     def count_people_in_same_area(self, res, area):
         print(f"Number of people in the {area} area is: {len(res)}")
