@@ -1,9 +1,11 @@
 from address_book_main import AddressBook
 from Schema.schema import ContactSchema,contact_details
+from Text_File_IO.file_IO_txt import  save_book_to_txt, load_all_books
 class AddressBookMain:
     
     def __init__(self):
-        self.books = {}
+        self.books = load_all_books()
+        
     # Add a new Address Book
     def add_book(self, name = None):
         if name is None:
@@ -11,6 +13,7 @@ class AddressBookMain:
         
         if name not in self.books:
             self.books[name] = AddressBook()
+            save_book_to_txt(name, self.books[name])
             print(self.books[name])
             return True
         else:
@@ -27,14 +30,15 @@ class AddressBookMain:
             return
         print(f"Found book: {book}")
         print(type(self.books.get(book)))
-        return self.books.get(book)
+        return book
     
     # Do operations on the selected address book
     def operate_book(self):
-        book = self.get_book()
-        if book is None:
+        book_name = self.get_book()
+        if book_name is None:
             print("The book does not exist!!!")
             return
+        book = self.books[book_name]
         while True:
             print("""
     Menu:
@@ -50,11 +54,12 @@ class AddressBookMain:
             match choice:
                 # Add a contact
                 case 1:
-                    print(f"Give your Details: to add to {book} book: ")
+                    print(f"Give your Details: to add to {book_name} book: ")
                     try:
                         contact_data = contact_details()
                         book.add_contact(**contact_data.__dict__)
                         
+                        save_book_to_txt(book_name, book)
                         
                     except ValueError as e:
                         print(f"Error: {e}")
@@ -68,6 +73,8 @@ class AddressBookMain:
                         first_name = input("First Name: ")
                         last_name = input("Last Name: ")
                         book.edit_details(first_name, last_name)
+                        
+                        save_book_to_txt(book_name, book)
 
                 # Delete an existing contact
                 case 3:
@@ -75,6 +82,8 @@ class AddressBookMain:
                     first_name = input("First Name: ")
                     last_name = input("Last Name: ")
                     book.delete_details(first_name, last_name)
+                    
+                    save_book_to_txt(book_name, book)
 
                 # Display contact details
                 case 9:
