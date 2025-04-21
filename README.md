@@ -1,33 +1,139 @@
-UC2 - Add Contact to Address Book
+# 📒 Address Book Management System
 
-Overview
-This module enables the user to add a new contact to the address book via console input. It follows Object-Oriented Programming (OOP) principles and includes automated testing using pytest with fake data generation using the Faker library.
+A Python-based modular Address Book System that allows users to create and manage multiple address books, each containing validated contact information. The system supports full CRUD operations, advanced search capabilities, and persistent storage across `.txt`, `.csv`, and `.json` formats. Powered by `pydantic` for schema validation and a clean CLI interface.
 
-Features
-Accepts user input via console to add a new contact.
+---
 
-Implements Object-Oriented Concepts:
+## 🚀 Features
 
-Contact: encapsulates contact information.
+- 🔹 Create and manage multiple address books
+- 🔹 Add, edit, delete, and display contacts
+- 🔹 Validate contact details using `Pydantic`
+- 🔹 Store data in `.txt`, `.csv`, and `.json` formats
+- 🔹 Search people across all address books by:
+  - City
+  - State
+- 🔹 Count and list contacts in a specific location
+- 🔹 Sort contacts by:
+  - Name
+  - City, State, or ZIP
+- 🔹 Interactive and user-friendly CLI menus
 
-AddressBook: manages the collection of contacts.
+---
 
-Validates and adds contact data to the address book.
+## 🗂️ Project Structure
 
-Supports unit testing using pytest.
+AddressBookProject/  
+├── Schema/  
+│ ├── schema.py/
+├── Utils/  
+│ ├── validate_input.py
+├──tests/  
+│ └── test_inputs.py 
+│ └── conftest.py
+├── File_IO/  
+│ ├── data_txt/ 
+│ ├── data_csv/  
+│ ├── data_json/
+│ └── file_IO.py  
+├── address_book_main.py  
+├── main.py  
+├── address_book.py  
+├── address_book_system.py  
+├── contact_info.py
+├── README.md
+├── requirements.txt
 
-Uses the Faker library to generate realistic fake data for testing.
 
-Architecture
-Class	                    Responsibility
-Contact	                    Stores personal contact details
-AddressBook	            Collects input and manages the address book list
-generate_faker_input.py	    Generates and writes fake contact data to a test file
-test_address_book.py	    Pytest file for testing Contact creation and storage
 
-Testing with pytest and Faker
-Faker is used to generate multiple realistic fake contact entries.
+---
 
-These entries are stored in test_input.txt.
+## 🛠️ Technologies Used
 
-pytest reads the entries, converts them into Contact objects, and checks if they are added correctly to the address book.
+- **Python 3.10+**
+- **Pydantic** – for input validation
+- **CSV / JSON / TXT** – for persistent file storage
+- **CLI Interface** – no GUI required
+
+---
+
+## 🔧 Setup Instructions
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/address-book-system.git
+cd address-book-system
+```
+### 2. Create Virtual Environment (optional but recommended)
+```bash
+python -m venv venv
+source venv/bin/activate   # On Windows: venv\Scripts\activate
+```
+
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run the application
+```bash
+python main.py
+```
+
+### 🧑‍💻 How to Use
+On running main.py, you'll be presented with a numbered menu. Select operations like:
+
+Add new books
+
+Open a book and perform contact operations
+
+Find people across books by city/state
+
+Sort contacts by different fields
+
+View all books or exit
+
+All changes are saved automatically to all 3 file formats.
+
+### ✅ Sample Contact Fields
+When adding a contact, you'll be asked to input:
+
+First Name
+
+Last Name
+
+Address
+
+City
+
+State
+
+ZIP Code
+
+Phone Number
+
+Email
+
+All fields are validated using the Pydantic ContactSchema.
+
+### 📁 Data Storage
+For every address book created, the system generates:
+
+File_IO/data_txt/<book_name>.txt
+
+File_IO/data_csv/<book_name>.csv
+
+File_IO/data_json/<book_name>.json
+
+This ensures redundancy and multiple formats for portability.
+
+### 📄 Requirements
+
+```text
+pydantic>=2.0
+```
+### 📬 Contact
+## Made by Himanshu Baid
+If you found this useful, feel free to ⭐️ the repo or connect with me on LinkedIn!
+
+LinkedIn: https://www.linkedin.com/in/himanshu-baid-808834213/
